@@ -1,34 +1,30 @@
 'use strict';
 
-import React, { Component } from 'react';
-import {
-    View,
-    StyleSheet,
-    Text,
-    TouchableOpacity
-} from 'react-native';
+import React, {Component} from "react";
+import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import {connect} from "react-redux";
+import {incrementCount} from "../actions/main";
 
-import {connect} from 'react-redux'
-import {incrementCount} from '../actions/main'
+class Main extends Component {
+  componentDidMount() {
+  }
 
-var Main = React.createClass({
-    componentDidMount() {
-    },
-    increment() {
-      this.props.dispatch(incrementCount());
-    },
-    render: function () {
-        return (
-            <View style={styles.container}>
-                <Text>Counter:  {this.props.main.counter}</Text>
+  increment() {
+    this.props.dispatch(incrementCount());
+  }
 
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.increment} />
-            </View>
-        );
-    }
-});
+  render () {
+    return (
+      <View style={styles.container}>
+        <Text>Counter: {this.props.main.counter}</Text>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.increment.bind(this)}/>
+      </View>
+    );
+  }
+}
 
 function mapStateToProps(state) {
   return {
@@ -36,17 +32,17 @@ function mapStateToProps(state) {
   }
 }
 
-module.exports = connect(mapStateToProps)(Main)
+export default connect(mapStateToProps)(Main)
 
-var styles = StyleSheet.create({
-    container: {
-        flex:1,
-        paddingTop:20
-    },
-    button: {
-      width: 50,
-      height: 30,
-      backgroundColor: "#eee"
-    }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20
+  },
+  button: {
+    width: 50,
+    height: 30,
+    backgroundColor: "#eee"
+  }
 
 });
